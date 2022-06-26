@@ -11,11 +11,12 @@ searchbox.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
     
 function onSearch() {
     const name = searchbox.value.trim()
-    if (name === '') {
-        return (countryList.innerHTML = '')
-            (countryInfo.innerHTML = '')
-    }
+    
     fetchCountries(name).then(countries => {
+        if (countries.length === '') {
+            countryList.innerHTML = ''
+            countryInfo.innerHTML = ''
+        } else
         if (countries.length === 1) {
             countryList.innerHTML = ''
             countryInfo.innerHTML = buildMarkupCountry(countries)
